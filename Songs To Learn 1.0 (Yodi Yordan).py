@@ -6,8 +6,8 @@ https://github.com/yodiyordan/CP1404_A1_YodiYordan/blob/master/Songs%20To%20Lear
 
 from operator import itemgetter
 
-data_sort = []
 songs_file = "Songs.csv"
+data_sort = []
 
 
 def main():
@@ -23,6 +23,8 @@ def main():
         answer = valid_check(answer)
         if answer == "L":
             list_song()
+        if answer == "A":
+            add_song()
 
 
 def open_file():
@@ -63,6 +65,40 @@ def list_song():
             print(index, "  {:30s} - {:25s} ({})".format(data[0], data[1], data[2]))
             songs_learned += 1
     print("{} songs learned, {} songs still need to be learned".format(songs_learned, songs_not_learned))
+
+
+def add_song():
+    add_new_song = []
+    while True:
+        title = str(input("Title: "))
+        if title == "":
+            print("Input can not be blank")
+        else:
+            break
+    add_new_song.append(title)
+
+    while True:
+        artist = str(input("Artist: "))
+        if artist == "":
+            print("Input can not be blank")
+        else:
+            break
+    add_new_song.append(artist)
+
+    while True:
+        try:
+            year = int(input("Year: "))
+            if year <= 0:
+                print("Number must be >=0")
+            else:
+                break
+        except ValueError:
+            print("Invalid input; enter a valid number")
+    add_new_song.append(str(year))
+    print("{} by {} ({}) added to song list".format(title, artist, year))
+    add_new_song.append("y")
+    data_sort.append(add_new_song)
+    data_sort.sort(key=itemgetter(1, 2))
 
 
 main()
